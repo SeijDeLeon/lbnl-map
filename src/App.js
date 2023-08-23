@@ -1,27 +1,25 @@
 import './App.css';
 
+import Map from './Map.jsx';
+import Search from './Search.jsx';
+
+import {useState} from 'react';
+
 import { MapContainer, TileLayer, useMap, GeoJSON } from 'react-leaflet';
 import {Marker, Popup} from 'leaflet';
 import lbnlGeoJson from './data/LBNL.json';
 
 
-
 function App() {
 
+  const [building, setBuilding] = useState('');
   return (
     <main className='block '>
       <header className='w-full'>
         <h1 className='text-center text-cyan-800'>LBNL Map</h1>
       </header>
-      <div className='h-96'>
-        <MapContainer className='h-96' center={[37.8765, -122.246]} zoom={16.5} scrollWheelZoom={false}>
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <GeoJSON data={lbnlGeoJson}></GeoJSON>
-        </MapContainer>
-      </div>
+      <Map building={building} setBuilding={setBuilding}/>
+      <Search building={building} setBuilding={setBuilding}/>
     </main>
   );
 }
