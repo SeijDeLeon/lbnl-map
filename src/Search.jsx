@@ -17,6 +17,40 @@ export default function Search( {building, setBuilding} ) {
   const [wall, setWall] = useState(false);
   const [floor, setFloor] = useState(false);
   const [wallAndFloor, setWallAndFloor] = useState(false);
+  const [equipment, setEquipment] = useState('');
+
+  //equipment names must perfectly match (without spaces) the columns in the original Excel data (and corresponding JSON file) for the search to work
+  const equipmentList =[
+      'TV',
+      'Whiteboard',
+      'Fridge/Freezer',
+      'Table',
+      'Optical Table',
+      'Counter Top Eqp',
+      'Cabinets',
+      'File Cabinet',
+      'Lateral Cabinet',
+      'Tool Cabinet',
+      'Flam Cabinet',
+      'Wire Shelf',
+      'Glove Box',
+      'Biosafety Cabinet',
+      'Incubator',
+      'Vending Machine',
+      'Dewar',
+      'Gas Cylinder',
+      'Unistrut Frame',
+      'Hamilton Units',
+      'Pallet Racks',
+      'Skid Mounted',
+      'Industrial Equipment',
+      'Guardrails/Fencing',
+      'Floor Load Evaluation',
+      'Conduit & Pipe',
+      'Roof Equipment',
+      'Fall Protection'
+
+  ];
 
   return(
     <div className='border-red-500 border-solid border-2'>
@@ -29,7 +63,7 @@ export default function Search( {building, setBuilding} ) {
           </div>
         </search>
       </div>
-      <section className='border-2 border-solid border-slate-300 block'>
+      <section className='border-2 border-solid border-slate-300 block bg-slate-100 w-4/5 m-auto'>
         <h2>Search for Structural Calculations</h2>
         <div className='flex justify-around'>
           <button className='flex'> Equipment Type {chevronDown}</button>
@@ -54,10 +88,13 @@ export default function Search( {building, setBuilding} ) {
 
           </div>
         </div>
-        <div>inputs2</div>
+        <div className='bg-white w-11/12 m-auto grid grid-cols-5'>
+          {equipmentList.map(item =>
+            <p key={item} className={`hover:cursor-pointer ${equipment === item ? 'bg-blue-300 hover:bg-blue-100' : 'hover:bg-blue-200'}`} onClick={() => item === equipment ? setEquipment('') : setEquipment(item)}>{item} </p>
+          )}
+        </div>
         <Results building={deferredBuilding}/>
       </section>
-      <p>{wall ? 'yes wall' : 'no wall'}</p>
     </div>
   )
 }
