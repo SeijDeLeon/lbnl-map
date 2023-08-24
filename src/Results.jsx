@@ -3,9 +3,7 @@ import { useState, useEffect } from 'react';
 import { calculationData } from './data/calculationData.js';
 
 export default function Results( {building='', equipment='', level='all', floor=true, wall=true, wallAndFloor=true} ) {
-  //returns the results based on the search parameters
-
-  const [calculation, setCalculation] = useState('');
+  const images = require.context('../public/images', true);
   const [results, setResults] = useState([]);
 
 
@@ -13,29 +11,34 @@ export default function Results( {building='', equipment='', level='all', floor=
     //perform search
     setResults(() => {
       const filterItem = (item) => {
-        //building is '' as default
-        //equipment is '' as default
-        //level is 'all' as default
-        //floor, wall, wallAndFloor are true as default
-        if ( (!building || item.building === building) && (level === 'all' || item.level === level) && ( (item.floor && floor) || (item.wall && wall) || (item.wallAndFloor && wallAndFloor)) ) {
-          return true;
+        //building, equipment, level are '' as default. level is 'all' as default.floor, wall, wallAndFloor are true as default
+        if ( !building || item.building === building) {
+          if ( (level === 'all' || item.level === level) && ( (item.floor && floor) || (item.wall && wall) || (item.wallAndFloor && wallAndFloor)) ) {
+            if (!equipment || item[equipment] === true) {
+              return true;
+            }
+          }
         }
       }
       return(
         calculationData.filter( filterItem )
         )
       });
-  }, [building])
+  }, [building, equipment, level, floor, wall, wallAndFloor])
+
+  //return <img src={process.env.PUBLIC_URL + '/img/logo.png'} />;
 
   console.log({calculationData});
   return (
     <section className="border-solid border-red-300 border 2">
-      <div>results</div>
-      {results.map( (item) =>
-        <div key={item.id}>
-          <p>{item.title}</p>
-        </div>
-      )}
+      <div className='grid grid-cols-4'>
+        {results.map( (item) =>
+          <div key={item.id} className='h-auto'>
+            <p>{item.title}</p>
+            <img alt={item.title} src={images(`./${item.id}.png`)}/>
+          </div>
+        )}
+      </div>
     </section>
   )
 }

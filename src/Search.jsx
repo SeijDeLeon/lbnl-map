@@ -68,8 +68,8 @@ export default function Search( {building, setBuilding} ) {
         <div className='flex justify-around'>
           <button className='flex'> Equipment Type {chevronDown}</button>
           <label>
-            Floor
-            <select>
+            Level
+            <select onChange={(e) => setLevel(e.target.value)}>
               <option value='all'>All</option>
               <option value='1'>1st</option>
               <option value='2'>2nd</option>
