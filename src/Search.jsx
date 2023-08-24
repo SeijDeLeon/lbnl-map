@@ -14,20 +14,21 @@ export default function Search( {building, setBuilding} ) {
 
   const deferredBuilding = useDeferredValue(building); //ensures that keystrokes are prioritized over searches
 
-  const [wall, setWall] = useState(false);
-  const [floor, setFloor] = useState(false);
-  const [wallAndFloor, setWallAndFloor] = useState(false);
+  const [wall, setWall] = useState(true);
+  const [floor, setFloor] = useState(true);
+  const [wallAndFloor, setWallAndFloor] = useState(true);
   const [equipment, setEquipment] = useState('');
+  const [level, setLevel] = useState('all');
 
   //equipment names must perfectly match (without spaces) the columns in the original Excel data (and corresponding JSON file) for the search to work
   const equipmentList =[
       'TV',
       'Whiteboard',
-      'Fridge/Freezer',
+      'Fridge',
       'Table',
       'Optical Table',
       'Counter Top Eqp',
-      'Cabinets',
+      'Cabinet',
       'File Cabinet',
       'Lateral Cabinet',
       'Tool Cabinet',
@@ -40,16 +41,15 @@ export default function Search( {building, setBuilding} ) {
       'Dewar',
       'Gas Cylinder',
       'Unistrut Frame',
-      'Hamilton Units',
-      'Pallet Racks',
+      'Hamilton Unit',
+      'Pallet Rack',
       'Skid Mounted',
-      'Industrial Equipment',
-      'Guardrails/Fencing',
+      'Industrial',
+      'Guardrail',
       'Floor Load Evaluation',
-      'Conduit & Pipe',
+      'Distributed System',
       'Roof Equipment',
       'Fall Protection'
-
   ];
 
   return(
@@ -82,9 +82,9 @@ export default function Search( {building, setBuilding} ) {
           </label>
           <div className='flex'>
             <p>Attachment</p>
-            <label><input type='checkbox' defaultChecked={false} name='wall' onChange={()=> setWall(!wall)}/> Wall </label>
-            <label> <input type='checkbox' defaultChecked={false} name='floor' onChange={()=> setFloor(!floor)}/>Floor</label>
-            <label> <input type='checkbox' defaultChecked={false} name='wallAndFloor' onChange={()=> setWallAndFloor(!wallAndFloor)}/>Wall & Floor</label>
+            <label><input type='checkbox' defaultChecked={true} name='wall' onChange={()=> setWall(!wall)}/> Wall </label>
+            <label> <input type='checkbox' defaultChecked={true} name='floor' onChange={()=> setFloor(!floor)}/>Floor</label>
+            <label> <input type='checkbox' defaultChecked={true} name='wallAndFloor' onChange={()=> setWallAndFloor(!wallAndFloor)}/>Wall & Floor</label>
 
           </div>
         </div>
@@ -93,7 +93,7 @@ export default function Search( {building, setBuilding} ) {
             <p key={item} className={`hover:cursor-pointer ${equipment === item ? 'bg-blue-300 hover:bg-blue-100' : 'hover:bg-blue-200'}`} onClick={() => item === equipment ? setEquipment('') : setEquipment(item)}>{item} </p>
           )}
         </div>
-        <Results building={deferredBuilding}/>
+        <Results building={deferredBuilding} equipment={equipment} level={level} floor={floor} wall={wall} wallAndFloor={wallAndFloor}/>
       </section>
     </div>
   )
