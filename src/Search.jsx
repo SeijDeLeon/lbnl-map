@@ -29,9 +29,8 @@ export default function Search( {building, setBuilding} ) {
       'Optical Table',
       'Counter Top Eqp',
       'Cabinet',
-      'File Cabinet',
-      'Lateral Cabinet',
-      'Tool Cabinet',
+      'Shelving',
+      'Scientific',
       'Flam Cabinet',
       'Wire Shelf',
       'Glove Box',
@@ -40,16 +39,17 @@ export default function Search( {building, setBuilding} ) {
       'Vending Machine',
       'Dewar',
       'Gas Cylinder',
+      'Crane',
       'Unistrut Frame',
-      'Hamilton Unit',
       'Pallet Rack',
-      'Skid Mounted',
+      'Electrical',
       'Industrial',
       'Guardrail',
       'Floor Load Evaluation',
       'Distributed System',
       'Roof Equipment',
-      'Fall Protection'
+      'Fall Protection',
+      'Building'
   ];
 
   return(

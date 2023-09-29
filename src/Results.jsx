@@ -2,9 +2,15 @@ import { useState, useEffect } from 'react';
 
 import { calculationData } from './data/calculationData.js';
 
+import SubResults from './SubResults.jsx';
+
+
 export default function Results( {building='', equipment='', level='all', floor=true, wall=true, wallAndFloor=true} ) {
-  const images = require.context('../public/images', true);
   const [results, setResults] = useState([]);
+
+
+  const testFolder = './data/';
+
 
 
   useEffect(() => {
@@ -23,22 +29,11 @@ export default function Results( {building='', equipment='', level='all', floor=
       return(
         calculationData.filter( filterItem )
         )
-      });
+    });
   }, [building, equipment, level, floor, wall, wallAndFloor])
 
-  //return <img src={process.env.PUBLIC_URL + '/img/logo.png'} />;
 
-  console.log({calculationData});
   return (
-    <section className="border-solid border-red-300 border 2">
-      <div className='grid grid-cols-4'>
-        {results.map( (item) =>
-          <div key={item.id} className='h-auto'>
-            <p>{item.title}</p>
-            <img alt={item.title} src={images(`./${item.id}.png`)}/>
-          </div>
-        )}
-      </div>
-    </section>
+   SubResults(results)
   )
 }
