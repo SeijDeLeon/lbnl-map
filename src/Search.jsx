@@ -71,6 +71,7 @@ export default function Search( {building, setBuilding} ) {
             Level
             <select onChange={(e) => setLevel(e.target.value)}>
               <option value='all'>All</option>
+              <option value='0'>All</option>
               <option value='1'>1st</option>
               <option value='2'>2nd</option>
               <option value='3'>3rd</option>
@@ -93,7 +94,7 @@ export default function Search( {building, setBuilding} ) {
             <p key={item} className={`hover:cursor-pointer ${equipment === item ? 'bg-blue-300 hover:bg-blue-100' : 'hover:bg-blue-200'}`} onClick={() => item === equipment ? setEquipment('') : setEquipment(item)}>{item} </p>
           )}
         </div>
-        <Results building={deferredBuilding} equipment={equipment} level={level} floor={floor} wall={wall} wallAndFloor={wallAndFloor}/>
+        <Results building={deferredBuilding} equipment={equipment.replace(/\s+/g, '')} level={level} floor={floor} wall={wall} wallAndFloor={wallAndFloor}/>
       </section>
     </div>
   )
