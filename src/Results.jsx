@@ -1,17 +1,10 @@
 import { useState, useEffect } from 'react';
-
 import { calculationData } from './data/calculationData.js';
-
 import SubResults from './SubResults.jsx';
 
 
 export default function Results( {building='', equipment='', level='all', floor=true, wall=true, wallAndFloor=true} ) {
   const [results, setResults] = useState([]);
-
-
-  const testFolder = './data/';
-
-
 
   useEffect(() => {
     //perform search
