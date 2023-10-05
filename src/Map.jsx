@@ -15,7 +15,7 @@ export default function Map( {building, setBuilding} ) {
     }
   }
   return (
-    <div className='h-96 max-w-full w-4/5 m-auto'>
+    <div className='h-96 max-w-7xl w-4/5 m-auto'>
         <MapContainer className='h-96' center={[37.8765, -122.246]} zoom={16} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -19,6 +19,7 @@ export default function Search( {building, setBuilding} ) {
   const [wallAndFloor, setWallAndFloor] = useState(true);
   const [equipment, setEquipment] = useState('');
   const [level, setLevel] = useState('all');
+  const [equipmentDisplay, setEquipmentDisplay] = useState(false);
 
   //equipment names must perfectly match (without spaces) the columns in the original Excel data (and corresponding JSON file) for the search to work
   const equipmentList =[
@@ -36,16 +37,15 @@ export default function Search( {building, setBuilding} ) {
       'Glove Box',
       'Biosafety Cabinet',
       'Incubator',
-      'Vending Machine',
       'Dewar',
       'Gas Cylinder',
       'Crane',
       'Unistrut Frame',
-      'Pallet Rack',
+      'Rack',
       'Electrical',
       'Industrial',
       'Guardrail',
-      'Floor Load Evaluation',
+      'Floor Load',
       'Distributed System',
       'Roof Equipment',
       'Fall Protection',
@@ -53,46 +53,50 @@ export default function Search( {building, setBuilding} ) {
   ];
 
   return(
-    <div className='border-red-500 border-solid border-2'>
+    <div className=''>
       <div className='flex justify-center'>
-        <search className='flex h-8'>
-          {searchIcon}
-          <div className='relative w-64'>
-            <p className={`absolute z-0 top-0 left-0 w-full h-full border-red-500 border-solid border-2 w-auto ${building ? 'text-transparent' : 'text-slate-300'}`}>Search Building #</p>
-            <input className={`absolute z-10 top-0 left-0 w-full h-full border-red-500 border-solid border-2 w-auto text-slate-700 ${building ? 'opacity-100' : 'opacity-25'}`} name='buildingSearch' value={building} onChange={e => setBuilding(e.target.value)} />
+        <search className='flex h-6 my-6'>
+          {searchIcon} &nbsp;
+          <div className='relative w-36'>
+            <p className={`absolute z-0 top-0 left-4 w-full h-full  w-auto ${building ? 'text-transparent' : 'text-slate-300'}`}>Search Building #</p>
+            <input className={`absolute z-10 top-0 left-2 w-full h-full border-solid border-2 border-slate-500 rounded-md w-auto text-slate-700 ${building ? 'opacity-100' : 'opacity-25'}`} name='buildingSearch' value={building} onChange={e => setBuilding(e.target.value)} />
           </div>
         </search>
       </div>
       <section className='border-2 border-solid border-slate-300 rounded-lg block bg-slate-50 w-4/5 max-w-7xl m-auto'>
-        <h2>Search for Structural Calculations</h2>
-        <div className='flex justify-around'>
-          <button className='flex'> Equipment Type {chevronDown}</button>
-          <label>
-            Level
-            <select onChange={(e) => setLevel(e.target.value)}>
-              <option value='all'>All</option>
-              <option value='0'>All</option>
+        <h2 className='pl-8 pt-4 text-lg font-medium text-sky-900'>Search for Structural Calculations</h2>
+        <div className='flex justify-around my-4'>
+          <button className='flex items-center text-sky-900 bg-white rounded-md px-4 font-medium border-2 border-slate-200' onClick={()=> setEquipmentDisplay(!equipmentDisplay)}> Equipment Type &nbsp; {equipmentDisplay ? chevronUp : chevronDown}</button>
+          <label className='text-sky-900 font-medium bg-slate-200 rounded-md pl-2'>
+            {`Level `}
+            <select className='h-full rounded-r-md border-2 border-slate-200' onChange={(e) => setLevel(e.target.value)}>
+              <option value='all'>&nbsp; All</option>
+              <option value='0'>0</option>
               <option value='1'>1st</option>
               <option value='2'>2nd</option>
               <option value='3'>3rd</option>
               <option value='4'>4th</option>
               <option value='5'>5th</option>
               <option value='6'>6th</option>
-              <option value='roof'>Roof</option>
+              <option value='r'>Roof</option>
+              <option value='outside'>Outside</option>
             </select>
           </label>
           <div className='flex'>
-            <p>Attachment</p>
-            <label><input type='checkbox' defaultChecked={true} name='wall' onChange={()=> setWall(!wall)}/> Wall </label>
-            <label> <input type='checkbox' defaultChecked={true} name='floor' onChange={()=> setFloor(!floor)}/>Floor</label>
-            <label> <input type='checkbox' defaultChecked={true} name='wallAndFloor' onChange={()=> setWallAndFloor(!wallAndFloor)}/>Wall & Floor</label>
+            <p className='text-sky-900 font-medium mr-4'>Attachment:</p>
+            <label className='text-sky-900 font-medium mx-4'><input type='checkbox' defaultChecked={true} name='wall' onChange={()=> setWall(!wall)}/> Wall </label>
+            <label className='text-sky-900 font-medium mx-4'> <input type='checkbox' defaultChecked={true} name='floor' onChange={()=> setFloor(!floor)}/> Floor</label>
+            <label className='text-sky-900 font-medium mx-4'> <input type='checkbox' defaultChecked={true} name='wallAndFloor' onChange={()=> setWallAndFloor(!wallAndFloor)}/> Wall & Floor</label>
 
           </div>
         </div>
-        <div className='bg-white w-11/12 m-auto grid grid-cols-5'>
-          {equipmentList.map(item =>
-            <p key={item} className={`hover:cursor-pointer ${equipment === item ? 'bg-blue-300 hover:bg-blue-100' : 'hover:bg-blue-200'}`} onClick={() => item === equipment ? setEquipment('') : setEquipment(item)}>{item} </p>
-          )}
+        <div className={`${equipmentDisplay ? '' : 'hidden'} m-auto bg-white w-11/12`}>
+          <div className='px-4 py-4 m-auto grid grid-cols-5 text-slate-600 font-medium'>
+            {equipmentList.map(item =>
+              <p key={item} className={`hover:cursor-pointer ${equipment === item ? 'bg-blue-300 hover:bg-blue-100' : 'hover:bg-blue-200'}`} onClick={() => item === equipment ? setEquipment('') : setEquipment(item)}>{item} </p>
+            )}
+          </div>
+          <p className='flex items-center justify-center text-slate-600 font-medium hover:cursor-pointer' onClick={()=> setEquipmentDisplay(!equipmentDisplay)}>Hide &nbsp; {chevronUp}</p>
         </div>
         <Results building={deferredBuilding} equipment={equipment.replace(/\s+/g, '')} level={level} floor={floor} wall={wall} wallAndFloor={wallAndFloor}/>
       </section>

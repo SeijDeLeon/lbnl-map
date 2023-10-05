@@ -16,7 +16,7 @@ function App() {
   return (
     <main className='block '>
       <header className='w-full'>
-        <h1 className='text-center text-cyan-800'>LBNL Map</h1>
+        <h1 className='text-center text-lg font-semibold text-cyan-800 py-2'>Structural Calculation Records</h1>
       </header>
       <Map building={building} setBuilding={setBuilding}/>
       <Search building={building} setBuilding={setBuilding}/>

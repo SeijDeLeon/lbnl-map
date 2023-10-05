@@ -34,9 +34,9 @@ export default function SubResults(displayItems) {
     <section className="border-solid border-red-300">
       <div className='grid grid-cols-4'>
         {items.map( (item) =>
-          <div key={item.id} className='max-h-96 h-full hover:cursor-pointer bg-white rounded-lg mx-4 my-4 shadow-lg'>
+          <div key={item.id} className='max-h-72 h-full hover:shadow-inner hover:cursor-pointer hover:drop-shadow-lg bg-white rounded-lg mx-4 my-4 shadow-lg' onClick={()=> window.open(item.link, "_blank","noreferer")}>
             <img className='h-4/6 w-auto m-auto py-4' alt={item.title} src={checkPath(item.id) ? images(`./${item.id}.png`) : images(`./defaultCalc.png`)}/>
-            <div className='pl-2 pb-0'>
+            <div className='pl-4 pb-0'>
               <p className='my-0'>{item.year}</p>
               <p className='my-0'>{item.title}</p>
             </div>
