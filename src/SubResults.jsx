@@ -12,14 +12,12 @@ export default function SubResults(displayItems) {
 
 
   const checkPath = (id) => {
-    console.log('checking path with' + id);
     try {
       images(`./${id}.png`)
       return true;
     }
     catch (err) {
      //the image path was not found
-     console.log('error in' + id);
      return false;
     }
   }
