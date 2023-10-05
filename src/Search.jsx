@@ -63,7 +63,7 @@ export default function Search( {building, setBuilding} ) {
           </div>
         </search>
       </div>
-      <section className='border-2 border-solid border-slate-300 block bg-slate-100 w-4/5 m-auto'>
+      <section className='border-2 border-solid border-slate-300 rounded-lg block bg-slate-50 w-4/5 max-w-7xl m-auto'>
         <h2>Search for Structural Calculations</h2>
         <div className='flex justify-around'>
           <button className='flex'> Equipment Type {chevronDown}</button>
