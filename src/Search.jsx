@@ -93,7 +93,7 @@ export default function Search( {building, setBuilding} ) {
         <div className={`${equipmentDisplay ? '' : 'hidden'} m-auto bg-white w-11/12`}>
           <div className='px-4 py-4 m-auto grid grid-cols-5 text-slate-600 font-medium'>
             {equipmentList.map(item =>
-              <p key={item} className={`hover:cursor-pointer ${equipment === item ? 'bg-blue-300 hover:bg-blue-100' : 'hover:bg-blue-200'}`} onClick={() => item === equipment ? setEquipment('') : setEquipment(item)}>{item} </p>
+              <p key={item} className={`my-1 hover:cursor-pointer ${equipment === item ? 'bg-blue-300 hover:bg-blue-100' : 'hover:bg-blue-200'}`} onClick={() => item === equipment ? setEquipment('') : setEquipment(item)}>{item} </p>
             )}
           </div>
           <p className='flex items-center justify-center text-slate-600 font-medium hover:cursor-pointer' onClick={()=> setEquipmentDisplay(!equipmentDisplay)}>Hide &nbsp; {chevronUp}</p>
