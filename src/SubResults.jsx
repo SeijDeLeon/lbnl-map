@@ -23,7 +23,6 @@ export default function SubResults(displayItems) {
   }
 
   useEffect(() => {
-    displayItems.reverse();
     setItems(displayItems.slice((currentPage-1)*displayMax, (currentPage*displayMax)));
   }, [currentPage, displayItems])
 
